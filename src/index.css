@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+}
+
+:root {
+  /* Vibrant Light modern minimal palette */
+  --background: 0 0% 98%;
+  --foreground: 240 10% 4%;
+  
+  /* Cyan accent */
+  --primary: 185 100% 45%;
+  --primary-foreground: 0 0% 98%;
+  
+  /* Purple accent */
+  --secondary: 270 100% 55%;
+  --secondary-foreground: 0 0% 98%;
+  
+  --muted: 240 5% 90%;
+  --muted-foreground: 240 5% 40%;
+  
+  --accent: 185 100% 45%;
+  --accent-foreground: 0 0% 98%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 240 5% 85%;
+  --ring: 185 100% 45%;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 4%;
+}
+
+.dark {
+  /* Dark space futuristic minimal palette */
+  --background: 240 10% 4%;
+  --foreground: 0 0% 98%;
+  
+  /* Cyan accent */
+  --primary: 185 100% 50%;
+  --primary-foreground: 240 10% 4%;
+  
+  /* Purple accent */
+  --secondary: 270 100% 60%;
+  --secondary-foreground: 0 0% 98%;
+  
+  --muted: 240 5% 15%;
+  --muted-foreground: 240 5% 65%;
+  
+  --accent: 185 100% 50%;
+  --accent-foreground: 240 10% 4%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 240 5% 15%;
+  --ring: 185 100% 50%;
+  
+  --card: 240 10% 6%;
+  --card-foreground: 0 0% 98%;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased font-sans overflow-x-hidden;
+    cursor: crosshair;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight;
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600;
+  }
+  
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  }
+  
+  .glass-nav {
+    @apply bg-background/70 backdrop-blur-xl border-b border-white/5;
+  }
+}

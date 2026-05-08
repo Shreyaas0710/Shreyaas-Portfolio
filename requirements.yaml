@@ -1,0 +1,18 @@
+packages:
+  "framer-motion": "For buttery smooth page transitions and scroll-triggered animations"
+  "@tsparticles/react": "For the subtle floating particle background effect"
+  "@tsparticles/slim": "Lightweight engine for tsparticles"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility to safely merge tailwind classes without conflicts"
+
+images:
+  - path: "artifacts/portfolio/public/images/developer.png"
+    description: "A highly cinematic, ultra-realistic portrait of a young male software developer in a dark neon-lit cyberpunk environment. He is wearing a sleek dark hoodie, looking confident, with glowing cyan and electric blue lighting illuminating his face from computer screens. Clean tech aesthetic, deep dark background."
+    aspect_ratio: "9:16"
+  - path: "artifacts/portfolio/public/images/data-scientist.png"
+    description: "A highly cinematic, ultra-realistic portrait of a young male data scientist wearing stylish dark sunglasses in a high-tech dark environment. Glowing purple and magenta neon lighting reflects off his glasses. Holographic AI data nodes and futuristic matrix-like elements subtly glow in the background. Deep dark aesthetic."
+    aspect_ratio: "9:16"
+
+notes:
+  - The frontend is fully static, no backend API calls are necessary.
+  - The dual persona switching uses mouse X coordinate tracking to crossfade the two full-screen portrait images.
