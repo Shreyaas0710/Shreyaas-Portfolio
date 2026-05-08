@@ -27,7 +27,7 @@ const PROJECTS = [
   },
   {
     title: "Library Usage Access Analytics",
-    subtitle: "IGCAR Real-time system",
+    subtitle: "Indira Gandhi Centre for Atomic Research (IGCAR) Real-time system",
     description: "Django-based analytics dashboard providing real-time reporting, filtering, and actionable usage metrics for the digital library at IGCAR.",
     tags: ["Django", "Dashboards", "Data Analytics"],
     color: "cyan"

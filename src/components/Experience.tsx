@@ -5,7 +5,7 @@ import { Briefcase, Calendar } from "lucide-react";
 const EXPERIENCES = [
   {
     role: "In-Plant Trainee — Web Development",
-    company: "IGCAR",
+    company: "Indira Gandhi Centre for Atomic Research (IGCAR)",
     date: "May 2025",
     description: "Built a Django web application for auditorium and eBook analytics. Developed real-time interactive dashboards with built-in data filtering capabilities.",
     color: "cyan"

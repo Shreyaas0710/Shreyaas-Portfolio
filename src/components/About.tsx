@@ -26,7 +26,7 @@ export function About() {
                 I am a <strong>Final-year Computer Science (Data Science) student</strong> experienced in developing scalable full-stack and AI-powered applications using Python, Django, and geospatial APIs.
               </p>
               <p>
-                As an <strong>IEEE-published researcher</strong> with expertise in machine learning, data pipelines, and cloud technologies, my goal is always to engineer robust, analytical solutions that bridge the gap between complex datasets and accessible software interfaces.
+                As an <strong>IEEE-published researcher</strong> with expertise in Machine Learning, Data Engineering, Analytics Systems, AI Applications, my goal is always to engineer robust, analytical solutions that bridge the gap between complex datasets and accessible software interfaces.
               </p>
             </div>
 
@@ -81,7 +81,7 @@ export function About() {
               <div>
                 <h4 className="text-lg font-bold text-foreground">Expertise</h4>
                 <p className="text-muted-foreground text-sm mt-1">
-                  Machine Learning, Data Pipelines, Cloud Technologies
+                   Machine Learning, Data Engineering, Analytics Systems, AI Applications
                 </p>
               </div>
             </div>
