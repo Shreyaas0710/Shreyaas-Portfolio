@@ -61,7 +61,7 @@ export function Navbar() {
               {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <a
-              href="https://drive.google.com/file/d/1znWGJM6sok6TE_azwlhFSlGB7tS9kPMw/view?usp=drive_link"
+              href="https://drive.google.com/file/d/18mdiM1hXwcPshSUzjVgDo5FAobTUuyqw/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full font-medium text-sm bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-background hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] transition-all duration-300"
@@ -109,7 +109,7 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href="https://drive.google.com/file/d/1znWGJM6sok6TE_azwlhFSlGB7tS9kPMw/view?usp=drive_link"
+            href="https://drive.google.com/file/d/18mdiM1hXwcPshSUzjVgDo5FAobTUuyqw/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 mt-2 px-6 py-2.5 rounded-full font-medium text-sm bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-background transition-all duration-300"
