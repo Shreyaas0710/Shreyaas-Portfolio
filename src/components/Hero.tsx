@@ -67,8 +67,11 @@ export function Hero() {
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
                 >
+                  <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground/80 uppercase mb-2">
+                    Aspiring
+                  </p>
                   <h1 className="text-6xl md:text-7xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br from-foreground via-foreground/90 to-cyan-500 leading-tight">
-                    SOFTWARE
+                    AI
                     <br />
                     ENGINEER
                   </h1>
@@ -87,10 +90,13 @@ export function Hero() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
+                  <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground/80 uppercase mb-2">
+                    Aspiring
+                  </p>
                   <h1 className="text-6xl md:text-7xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br from-foreground via-foreground/90 to-purple-500 leading-tight">
                     DATA
                     <br />
-                    SCIENTIST
+                    ANALYST
                   </h1>
                   <p className="mt-6 text-xl md:text-2xl text-purple-600/90 dark:text-purple-400/80 font-mono tracking-widest uppercase">
                     AI • ML • Geospatial
@@ -172,7 +178,7 @@ export function Hero() {
             >
               <img
                 src={`${import.meta.env.BASE_URL}images/developer.jpeg`}
-                alt="Software Developer"
+                alt="AI Engineer"
                 className="max-h-[70vh] lg:max-h-[85vh] w-auto object-contain object-bottom rounded-3xl drop-shadow-[0_0_20px_rgba(0,255,255,0.15)]"
               />
             </div>
@@ -190,7 +196,7 @@ export function Hero() {
             >
               <img
                 src={`${import.meta.env.BASE_URL}images/data-scientist.jpeg`}
-                alt="Data Scientist"
+                alt="Data Analyst"
                 className="max-h-[70vh] lg:max-h-[85vh] w-auto object-contain object-bottom rounded-3xl drop-shadow-[0_0_20px_rgba(138,43,226,0.15)]"
               />
             </div>

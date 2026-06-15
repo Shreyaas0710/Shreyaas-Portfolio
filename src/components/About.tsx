@@ -37,7 +37,7 @@ export function About() {
                 </div>
                 <div>
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Focus Areas</h4>
-                  <p className="text-foreground font-medium text-sm">Full-Stack, Software Eng</p>
+                  <p className="text-foreground font-medium text-sm">Full-Stack, AI Eng</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -46,7 +46,7 @@ export function About() {
                 </div>
                 <div>
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Data Focus</h4>
-                  <p className="text-foreground font-medium text-sm">Data Science, Analytics</p>
+                  <p className="text-foreground font-medium text-sm">Data Analyst, Analytics</p>
                 </div>
               </div>
             </div>
