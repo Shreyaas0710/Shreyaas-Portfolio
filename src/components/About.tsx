@@ -23,10 +23,10 @@ export function About() {
             <h3 className="text-3xl font-display font-bold text-foreground mb-6">Hello, I'm Shreyaas</h3>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p>
-                I am a <strong>Final-year Computer Science (Data Science) student</strong> experienced in developing scalable full-stack and AI-powered applications using Python, Django, and geospatial APIs.
+                I am a <strong>Final-year Computer Science (Data Science) student</strong> experienced in developing AI-powered, full-stack, and data-driven applications using Python, Django, SQL, and geospatial APIs.
               </p>
               <p>
-                As an <strong>IEEE-published researcher</strong> with expertise in Machine Learning, Data Engineering, Analytics Systems, AI Applications, my goal is always to engineer robust, analytical solutions that bridge the gap between complex datasets and accessible software interfaces.
+                As an <strong>IEEE-published researcher and Indian Patent holder</strong>, I have worked on projects involving Machine Learning, Data Analytics, Geospatial Intelligence, and AI-assisted systems. My goal is to build scalable and intelligent software solutions that solve real-world problems through data and modern technologies.
               </p>
             </div>
 
@@ -37,7 +37,7 @@ export function About() {
                 </div>
                 <div>
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Focus Areas</h4>
-                  <p className="text-foreground font-medium text-sm">Full-Stack, AI Eng</p>
+                  <p className="text-foreground font-medium text-sm">AI Engineering, Full-Stack Development</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -46,7 +46,7 @@ export function About() {
                 </div>
                 <div>
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Data Focus</h4>
-                  <p className="text-foreground font-medium text-sm">Data Analyst, Analytics</p>
+                  <p className="text-foreground font-medium text-sm">Data Analytics, Geospatial Analytics</p>
                 </div>
               </div>
             </div>

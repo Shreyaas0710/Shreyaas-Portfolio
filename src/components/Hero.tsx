@@ -76,10 +76,10 @@ export function Hero() {
                     ENGINEER
                   </h1>
                   <p className="mt-6 text-xl md:text-2xl text-cyan-500/90 dark:text-cyan-400/80 font-mono tracking-widest uppercase">
-                    Python • Django • APIs
+                    PYTHON • MACHINE LEARNING • DJANGO • APIs
                   </p>
                   <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
-                    Building scalable full-stack applications with robust backend architectures.
+                    Building AI-powered and scalable full-stack applications using Python, Machine Learning, APIs, and modern backend technologies.
                   </p>
                 </motion.div>
               ) : (
@@ -99,10 +99,10 @@ export function Hero() {
                     ANALYST
                   </h1>
                   <p className="mt-6 text-xl md:text-2xl text-purple-600/90 dark:text-purple-400/80 font-mono tracking-widest uppercase">
-                    AI • ML • Geospatial
+                    AI • ML • GEOSPATIAL • SQL • POWER BI
                   </p>
                   <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
-                    Developing intelligent, data-centric systems and predictive pipelines.
+                    Developing intelligent, data-centric systems, predictive pipelines, and interactive analytics dashboards using AI, SQL, Power BI, and geospatial technologies.
                   </p>
                 </motion.div>
               )}
