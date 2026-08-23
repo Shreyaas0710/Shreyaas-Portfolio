@@ -2,20 +2,39 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
 import { Briefcase, Calendar } from "lucide-react";
 
-const EXPERIENCES = [
+interface ExperienceItem {
+  role: string;
+  company: string;
+  subtitle?: string;
+  date: string;
+  description: string;
+  color: "cyan" | "purple";
+  isCurrent?: boolean;
+}
+
+const EXPERIENCES: ExperienceItem[] = [
+  {
+    role: "Technical Intern — AI/Data",
+    company: "National e-Governance Division (NeGD)",
+    subtitle: "Ministry of Electronics & Information Technology (MeitY), Government of India",
+    date: "July 2026 – Present",
+    description: "Contributing to the development and enhancement of a Government of India web platform as part of the AI/Data technical team. Supporting data-driven application development and implementation for e-governance requirements.",
+    color: "cyan",
+    isCurrent: true
+  },
   {
     role: "In-Plant Trainee — Web Development",
     company: "Indira Gandhi Centre for Atomic Research (IGCAR)",
     date: "May 2025",
     description: "Built a Django web application for auditorium and eBook analytics. Developed real-time interactive dashboards with built-in data filtering capabilities.",
-    color: "cyan"
+    color: "purple"
   },
   {
     role: "Data Science & ML Intern",
     company: "YBI Foundation",
     date: "May 2024",
     description: "Worked on comprehensive machine learning pipelines using scikit-learn and pandas. Successfully implemented classification, regression models, and extensive feature engineering.",
-    color: "purple"
+    color: "cyan"
   }
 ];
 
@@ -40,7 +59,7 @@ export function Experience() {
                 className={`relative flex flex-col md:flex-row items-start md:items-center ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-[-47px] md:left-1/2 w-5 h-5 rounded-full border-4 border-background md:-translate-x-1/2 z-10 shadow-[0_0_15px_rgba(0,255,255,0.5)]"
+                <div className={`absolute left-[-47px] md:left-1/2 w-5 h-5 rounded-full border-4 border-background md:-translate-x-1/2 z-10 ${exp.color === 'cyan' ? 'shadow-[0_0_15px_rgba(0,255,255,0.5)]' : 'shadow-[0_0_15px_rgba(168,85,247,0.5)]'}`}
                      style={{ backgroundColor: exp.color === 'cyan' ? 'var(--color-primary)' : 'var(--color-secondary)' }}
                 />
 
@@ -50,10 +69,21 @@ export function Experience() {
                     <Briefcase className={`w-5 h-5 flex-shrink-0 ${exp.color === 'cyan' ? 'text-cyan-500' : 'text-purple-500'}`} />
                     <h3 className="text-xl font-bold text-foreground leading-tight">{exp.role}</h3>
                   </div>
-                  <h4 className="text-lg font-medium text-muted-foreground mb-4">{exp.company}</h4>
+                  <h4 className={`text-lg font-medium text-muted-foreground ${exp.subtitle ? 'mb-1' : 'mb-4'}`}>{exp.company}</h4>
+                  {exp.subtitle && (
+                    <p className="text-xs text-muted-foreground/80 mb-4 leading-snug">{exp.subtitle}</p>
+                  )}
                   
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono mb-4 bg-muted inline-block px-3 py-1 rounded-md">
-                    <Calendar className="w-4 h-4 inline pb-0.5" /> {exp.date}
+                  <div className="flex items-center gap-2 flex-wrap mb-4">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono bg-muted px-3 py-1 rounded-md border border-border/40">
+                      <Calendar className="w-4 h-4 inline pb-0.5" /> {exp.date}
+                    </div>
+                    {exp.isCurrent && (
+                      <span className="px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 rounded-md flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                        CURRENT
+                      </span>
+                    )}
                   </div>
                   
                   <p className="text-muted-foreground leading-relaxed">
@@ -68,3 +98,4 @@ export function Experience() {
     </section>
   );
 }
+
