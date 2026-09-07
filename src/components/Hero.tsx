@@ -66,6 +66,7 @@ export function Hero() {
   const [interactionZone, setInteractionZone] = useState<"left" | "center" | "right">("left");
   const [isInactive, setIsInactive] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [hasMouseMoved, setHasMouseMoved] = useState(false);
   const [isDesktopHover, setIsDesktopHover] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -127,9 +128,10 @@ export function Hero() {
 
       const ratio = relativeX / width;
 
-      // Update custom cursor coordinates
+      // Update custom cursor coordinates & active tracking
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      setHasMouseMoved(true);
 
       resetInactivityTimer();
 
@@ -201,19 +203,19 @@ export function Hero() {
 
   // Helper render for Persona Text Content + Dynamic Resume CTA
   const renderTextContent = (persona: PersonaConfig) => (
-    <div className="flex flex-col justify-center">
-      <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground/80 uppercase mb-2">
+    <div className="flex flex-col justify-center w-full max-w-xl mx-auto lg:mx-0">
+      <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground/80 uppercase mb-1.5">
         Aspiring
       </p>
       <h1
-        className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br ${persona.accentGradient} leading-tight`}
+        className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br ${persona.accentGradient} leading-none tracking-tight`}
       >
         {persona.titleLine1}
         <br />
         {persona.titleLine2}
       </h1>
       <p
-        className={`mt-6 text-lg sm:text-xl md:text-2xl font-mono tracking-widest uppercase ${
+        className={`mt-4 sm:mt-5 text-base sm:text-lg md:text-xl font-mono tracking-widest uppercase ${
           persona.id === "aiEngineer"
             ? "text-cyan-500/90 dark:text-cyan-400/80"
             : "text-purple-600/90 dark:text-purple-400/80"
@@ -221,36 +223,36 @@ export function Hero() {
       >
         {persona.techStack}
       </p>
-      <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
+      <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
         {persona.description}
       </p>
 
       {/* Action Row & Resume CTA */}
-      <div className="mt-8 flex flex-wrap gap-4 items-center">
+      <div className="mt-6 sm:mt-7 flex flex-wrap gap-3.5 items-center">
         <a
           href={persona.resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-bold border transition-all duration-300 hover:scale-105 ${persona.buttonClass}`}
+          className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold border transition-all duration-300 hover:scale-105 ${persona.buttonClass}`}
         >
-          <Download className="w-5 h-5" />
-          <span>{persona.resumeLabel}</span>
+          <Download className="w-4 h-4" />
+          <span className="text-sm sm:text-base">{persona.resumeLabel}</span>
         </a>
 
         <a
           href="#projects"
-          className="px-6 py-3.5 rounded-xl font-bold bg-foreground text-background hover:scale-105 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2"
+          className="px-5 py-3 rounded-xl font-bold bg-foreground text-background hover:scale-105 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 text-sm sm:text-base"
         >
           <span>View Projects</span>
           <ArrowRight className="w-4 h-4" />
         </a>
 
-        <div className="flex items-center gap-3 ml-1 sm:ml-3">
+        <div className="flex items-center gap-2.5 ml-1 sm:ml-2">
           <a
             href="https://github.com/Shreyaas0710"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-cyan-500 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-300"
+            className="w-11 h-11 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-cyan-500 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-300"
             aria-label="GitHub Profile"
           >
             <FaGithub className="w-5 h-5" />
@@ -259,7 +261,7 @@ export function Hero() {
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
+            className="w-11 h-11 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
             aria-label="LinkedIn Profile"
           >
             <FaLinkedin className="w-5 h-5" />
@@ -268,7 +270,7 @@ export function Hero() {
       </div>
 
       {/* Interaction Hint */}
-      <div className="mt-8 flex items-center gap-3 text-xs md:text-sm text-muted-foreground font-mono tracking-widest uppercase">
+      <div className="mt-6 flex items-center gap-3 text-xs text-muted-foreground font-mono tracking-widest uppercase">
         <div className="h-px flex-1 bg-border" />
         <span className="hidden sm:inline">Move left/right to switch persona</span>
         <span className="sm:hidden flex items-center gap-1.5">
@@ -285,7 +287,7 @@ export function Hero() {
       <img
         src={`${import.meta.env.BASE_URL}${persona.image}`}
         alt={persona.imageAlt}
-        className={`max-h-[60vh] lg:max-h-[75vh] w-auto object-contain object-bottom rounded-3xl transition-all duration-300 ${
+        className={`max-h-[45vh] sm:max-h-[52vh] lg:max-h-[60vh] xl:max-h-[65vh] w-auto object-contain object-bottom rounded-3xl transition-all duration-300 ${
           persona.id === "aiEngineer"
             ? "drop-shadow-[0_0_25px_rgba(0,255,255,0.2)]"
             : "drop-shadow-[0_0_25px_rgba(138,43,226,0.2)]"
@@ -318,8 +320,8 @@ export function Hero() {
         />
       </div>
 
-      {/* Custom Desktop Directional Cursor */}
-      {isDesktopHover && isHovered && (
+      {/* Custom Desktop Directional Cursor Follower */}
+      {isDesktopHover && isHovered && hasMouseMoved && (
         <motion.div
           style={{ x: cursorX, y: cursorY }}
           className="fixed top-0 left-0 pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2"
@@ -348,11 +350,11 @@ export function Hero() {
         </motion.div>
       )}
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 w-full min-h-screen max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between pt-24 pb-8">
+      {/* Hero Content Container with Generous Top Padding for Fixed Navbar Clearance */}
+      <div className="relative z-10 w-full min-h-screen max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between pt-28 sm:pt-32 lg:pt-36 pb-8 lg:pb-12">
         
         {/* Top Centered Section: Identity Badge & Centered Directional MOVE Control */}
-        <div className="w-full flex flex-col items-center justify-center gap-3 sm:gap-4 mb-4 z-20">
+        <div className="w-full flex flex-col items-center justify-center gap-2.5 sm:gap-3 mb-3 lg:mb-6 z-20">
           {/* Identity Badge */}
           <motion.span
             initial={{ opacity: 0, y: -20 }}
@@ -372,7 +374,7 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="w-full flex items-center justify-center px-2"
           >
-            <div className="inline-flex items-center justify-center gap-3 sm:gap-6 px-5 sm:px-8 py-2.5 sm:py-3 rounded-full border border-border/60 bg-card/60 backdrop-blur-xl shadow-xl font-mono text-xs sm:text-sm md:text-base tracking-wider max-w-full">
+            <div className="inline-flex items-center justify-center gap-3 sm:gap-6 px-5 sm:px-8 py-2 sm:py-2.5 rounded-full border border-border/60 bg-card/60 backdrop-blur-xl shadow-xl font-mono text-xs sm:text-sm md:text-base tracking-wider max-w-full">
               {/* Left Persona: AI Engineer */}
               <span
                 className={`whitespace-nowrap font-bold transition-all duration-300 ${
@@ -428,9 +430,9 @@ export function Hero() {
         </div>
 
         {/* Main 2-Column Swapping Grid: Physical layout matches Left vs Right Persona Selection */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 flex-1 my-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 lg:gap-12 flex-1 my-auto w-full">
           {/* Left Column Container */}
-          <div className="order-2 lg:order-1 flex justify-center w-full min-h-[420px]">
+          <div className="order-2 lg:order-1 flex justify-center items-center w-full px-2 sm:px-4 lg:px-6">
             <AnimatePresence mode="wait">
               {!isDataAnalyst ? (
                 /* AI Engineer Active -> Text Content on LEFT */
@@ -440,7 +442,7 @@ export function Hero() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
                   transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="w-full xl:pl-6"
+                  className="w-full flex justify-center"
                 >
                   {renderTextContent(PERSONAS.aiEngineer)}
                 </motion.div>
@@ -452,7 +454,7 @@ export function Hero() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
                   transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="w-full flex justify-center items-end h-[50vh] sm:h-[55vh] lg:h-[70vh]"
+                  className="w-full flex justify-center items-end"
                 >
                   {renderImageVisual(PERSONAS.dataAnalyst)}
                 </motion.div>
@@ -461,7 +463,7 @@ export function Hero() {
           </div>
 
           {/* Right Column Container */}
-          <div className="order-1 lg:order-2 flex justify-center w-full min-h-[420px]">
+          <div className="order-1 lg:order-2 flex justify-center items-center w-full px-2 sm:px-4 lg:px-6">
             <AnimatePresence mode="wait">
               {!isDataAnalyst ? (
                 /* AI Engineer Active -> Photo Visual on RIGHT */
@@ -471,7 +473,7 @@ export function Hero() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: prefersReducedMotion ? 0 : 30 }}
                   transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="w-full flex justify-center items-end h-[50vh] sm:h-[55vh] lg:h-[70vh]"
+                  className="w-full flex justify-center items-end"
                 >
                   {renderImageVisual(PERSONAS.aiEngineer)}
                 </motion.div>
@@ -483,7 +485,7 @@ export function Hero() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: prefersReducedMotion ? 0 : 30 }}
                   transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="w-full xl:pr-6"
+                  className="w-full flex justify-center"
                 >
                   {renderTextContent(PERSONAS.dataAnalyst)}
                 </motion.div>
