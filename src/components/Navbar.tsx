@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Sun, Moon, Download } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
 
@@ -11,7 +11,6 @@ const NAV_LINKS = [
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
   { name: "Certifications", href: "#certifications" },
-
   { name: "Contact", href: "#contact" },
 ];
 
@@ -60,14 +59,6 @@ export function Navbar() {
             >
               {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <a
-              href="https://drive.google.com/file/d/18mdiM1hXwcPshSUzjVgDo5FAobTUuyqw/view?usp=drive_link"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full font-medium text-sm bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-background hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] transition-all duration-300"
-            >
-              <Download size={16} /> Resume
-            </a>
           </div>
         </nav>
 
@@ -108,14 +99,6 @@ export function Navbar() {
               {link.name}
             </a>
           ))}
-          <a
-            href="https://drive.google.com/file/d/18mdiM1hXwcPshSUzjVgDo5FAobTUuyqw/view?usp=drive_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 mt-2 px-6 py-2.5 rounded-full font-medium text-sm bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-background transition-all duration-300"
-          >
-            <Download size={16} /> Download Resume
-          </a>
         </motion.div>
       )}
     </header>
