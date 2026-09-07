@@ -7,7 +7,6 @@ interface PersonaConfig {
   id: "aiEngineer" | "dataAnalyst";
   titleLine1: string;
   titleLine2: string;
-  badgeTag: string;
   techStack: string;
   description: string;
   resumeLabel: string;
@@ -15,8 +14,6 @@ interface PersonaConfig {
   driveId: string;
   cursorLabel: string;
   accentGradient: string;
-  textColor: string;
-  subtextColor: string;
   buttonClass: string;
   image: string;
   imageAlt: string;
@@ -28,7 +25,6 @@ const PERSONAS: Record<"aiEngineer" | "dataAnalyst", PersonaConfig> = {
     id: "aiEngineer",
     titleLine1: "AI",
     titleLine2: "ENGINEER",
-    badgeTag: "AI & ML SPECIALIZATION",
     techStack: "PYTHON • MACHINE LEARNING • DJANGO • APIs",
     description:
       "Building AI-powered and scalable full-stack applications using Python, Machine Learning, APIs, and modern backend technologies.",
@@ -38,8 +34,6 @@ const PERSONAS: Record<"aiEngineer" | "dataAnalyst", PersonaConfig> = {
     driveId: "1snuq0GGSehz2esfwgjlXHtegw3kwYpUF",
     cursorLabel: "← AI",
     accentGradient: "from-foreground via-foreground/90 to-cyan-500",
-    textColor: "text-cyan-500/90 dark:text-cyan-400/80",
-    subtextColor: "text-cyan-400",
     buttonClass:
       "bg-cyan-500/10 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black shadow-[0_0_20px_rgba(0,255,255,0.25)]",
     image: "images/developer.jpeg",
@@ -50,7 +44,6 @@ const PERSONAS: Record<"aiEngineer" | "dataAnalyst", PersonaConfig> = {
     id: "dataAnalyst",
     titleLine1: "DATA",
     titleLine2: "ANALYST",
-    badgeTag: "DATA & ANALYTICS SPECIALIZATION",
     techStack: "AI • ML • GEOSPATIAL • SQL • POWER BI",
     description:
       "Developing intelligent, data-centric systems, predictive pipelines, and interactive analytics dashboards using AI, SQL, Power BI, and geospatial technologies.",
@@ -60,8 +53,6 @@ const PERSONAS: Record<"aiEngineer" | "dataAnalyst", PersonaConfig> = {
     driveId: "1d6fQ7-ofRAp5b3xOh-z_SQbVusEt27rF",
     cursorLabel: "DA →",
     accentGradient: "from-foreground via-foreground/90 to-purple-500",
-    textColor: "text-purple-600/90 dark:text-purple-400/80",
-    subtextColor: "text-purple-400",
     buttonClass:
       "bg-purple-500/10 border-purple-500/50 text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_20px_rgba(138,43,226,0.25)]",
     image: "images/data-scientist.jpeg",
@@ -83,7 +74,7 @@ export function Hero() {
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
-  // Framer Motion Springs for the custom cursor
+  // Framer Motion Springs for custom desktop cursor
   const springConfig = prefersReducedMotion
     ? { stiffness: 1000, damping: 50 }
     : { stiffness: 250, damping: 25 };
@@ -123,7 +114,7 @@ export function Hero() {
     };
   }, []);
 
-  // Mouse move handler with hysteresis for smooth center zone transitions
+  // Mouse move handler with hysteresis (0-40% AI, 40-60% Center/Neutral, 60-100% Data Analyst)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
@@ -136,17 +127,17 @@ export function Hero() {
 
       const ratio = relativeX / width;
 
-      // Update custom cursor spring coordinates
+      // Update custom cursor coordinates
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
 
       resetInactivityTimer();
 
-      // Hysteresis calculation: Center zone between 0.42 and 0.58
-      if (ratio < 0.42) {
+      // Hysteresis logic: 0-40% AI Engineer, 40-60% Center (Stable active state), 60-100% Data Analyst
+      if (ratio < 0.40) {
         setIsDataAnalyst(false);
         setInteractionZone("left");
-      } else if (ratio > 0.58) {
+      } else if (ratio > 0.60) {
         setIsDataAnalyst(true);
         setInteractionZone("right");
       } else {
@@ -208,6 +199,106 @@ export function Hero() {
 
   const currentPersona = isDataAnalyst ? PERSONAS.dataAnalyst : PERSONAS.aiEngineer;
 
+  // Helper render for Persona Text Content + Dynamic Resume CTA
+  const renderTextContent = (persona: PersonaConfig) => (
+    <div className="flex flex-col justify-center">
+      <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground/80 uppercase mb-2">
+        Aspiring
+      </p>
+      <h1
+        className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br ${persona.accentGradient} leading-tight`}
+      >
+        {persona.titleLine1}
+        <br />
+        {persona.titleLine2}
+      </h1>
+      <p
+        className={`mt-6 text-lg sm:text-xl md:text-2xl font-mono tracking-widest uppercase ${
+          persona.id === "aiEngineer"
+            ? "text-cyan-500/90 dark:text-cyan-400/80"
+            : "text-purple-600/90 dark:text-purple-400/80"
+        }`}
+      >
+        {persona.techStack}
+      </p>
+      <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
+        {persona.description}
+      </p>
+
+      {/* Action Row & Resume CTA */}
+      <div className="mt-8 flex flex-wrap gap-4 items-center">
+        <a
+          href={persona.resumeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-bold border transition-all duration-300 hover:scale-105 ${persona.buttonClass}`}
+        >
+          <Download className="w-5 h-5" />
+          <span>{persona.resumeLabel}</span>
+        </a>
+
+        <a
+          href="#projects"
+          className="px-6 py-3.5 rounded-xl font-bold bg-foreground text-background hover:scale-105 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2"
+        >
+          <span>View Projects</span>
+          <ArrowRight className="w-4 h-4" />
+        </a>
+
+        <div className="flex items-center gap-3 ml-1 sm:ml-3">
+          <a
+            href="https://github.com/Shreyaas0710"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-12 h-12 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-cyan-500 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-300"
+            aria-label="GitHub Profile"
+          >
+            <FaGithub className="w-5 h-5" />
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-12 h-12 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
+            aria-label="LinkedIn Profile"
+          >
+            <FaLinkedin className="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      {/* Interaction Hint */}
+      <div className="mt-8 flex items-center gap-3 text-xs md:text-sm text-muted-foreground font-mono tracking-widest uppercase">
+        <div className="h-px flex-1 bg-border" />
+        <span className="hidden sm:inline">Move left/right to switch persona</span>
+        <span className="sm:hidden flex items-center gap-1.5">
+          <Smartphone className="w-3.5 h-3.5 text-cyan-400" /> Swipe ← →
+        </span>
+        <div className="h-px flex-1 bg-border" />
+      </div>
+    </div>
+  );
+
+  // Helper render for Persona Image Visual
+  const renderImageVisual = (persona: PersonaConfig) => (
+    <div className="relative w-full max-w-lg lg:max-w-xl h-full flex items-end justify-center">
+      <img
+        src={`${import.meta.env.BASE_URL}${persona.image}`}
+        alt={persona.imageAlt}
+        className={`max-h-[60vh] lg:max-h-[75vh] w-auto object-contain object-bottom rounded-3xl transition-all duration-300 ${
+          persona.id === "aiEngineer"
+            ? "drop-shadow-[0_0_25px_rgba(0,255,255,0.2)]"
+            : "drop-shadow-[0_0_25px_rgba(138,43,226,0.2)]"
+        }`}
+      />
+      {/* Base Radial Accent Glow */}
+      <div
+        className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-4/5 h-20 rounded-[100%] blur-3xl transition-all duration-500 pointer-events-none"
+        style={{ background: persona.imageGlow }}
+      />
+    </div>
+  );
+
   return (
     <section
       id="home"
@@ -261,7 +352,7 @@ export function Hero() {
       <div className="relative z-10 w-full min-h-screen max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-between pt-24 pb-8">
         
         {/* Top Centered Section: Identity Badge & Centered Directional MOVE Control */}
-        <div className="w-full flex flex-col items-center justify-center gap-3 sm:gap-4 mb-2 sm:mb-4 z-20">
+        <div className="w-full flex flex-col items-center justify-center gap-3 sm:gap-4 mb-4 z-20">
           {/* Identity Badge */}
           <motion.span
             initial={{ opacity: 0, y: -20 }}
@@ -274,18 +365,18 @@ export function Hero() {
             <span className="text-cyan-500 font-bold dark:text-cyan-400">Shreyaas S</span>
           </motion.span>
 
-          {/* Centered Directional MOVE Control Bar */}
+          {/* Full-Width Centered Directional MOVE Control Bar */}
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: isInactive ? 0.35 : 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="w-full flex items-center justify-center px-2"
           >
-            <div className="inline-flex items-center justify-center gap-3 sm:gap-6 px-4 sm:px-8 py-2.5 sm:py-3 rounded-full border border-border/60 bg-card/60 backdrop-blur-xl shadow-xl font-mono text-xs sm:text-sm md:text-base tracking-wider max-w-full">
+            <div className="inline-flex items-center justify-center gap-3 sm:gap-6 px-5 sm:px-8 py-2.5 sm:py-3 rounded-full border border-border/60 bg-card/60 backdrop-blur-xl shadow-xl font-mono text-xs sm:text-sm md:text-base tracking-wider max-w-full">
               {/* Left Persona: AI Engineer */}
               <span
                 className={`whitespace-nowrap font-bold transition-all duration-300 ${
-                  interactionZone === "left"
+                  interactionZone === "left" || !isDataAnalyst
                     ? "text-cyan-400 scale-105 opacity-100 drop-shadow-[0_0_12px_rgba(0,255,255,0.7)]"
                     : "opacity-40 text-muted-foreground hover:opacity-60"
                 }`}
@@ -297,7 +388,9 @@ export function Hero() {
               {/* Left Arrow */}
               <span
                 className={`transition-all duration-300 font-extrabold ${
-                  interactionZone === "left" ? "text-cyan-400 scale-110" : "text-muted-foreground/40"
+                  interactionZone === "left" || !isDataAnalyst
+                    ? "text-cyan-400 scale-110"
+                    : "text-muted-foreground/40"
                 }`}
               >
                 ←
@@ -311,7 +404,9 @@ export function Hero() {
               {/* Right Arrow */}
               <span
                 className={`transition-all duration-300 font-extrabold ${
-                  interactionZone === "right" ? "text-purple-400 scale-110" : "text-muted-foreground/40"
+                  interactionZone === "right" || isDataAnalyst
+                    ? "text-purple-400 scale-110"
+                    : "text-muted-foreground/40"
                 }`}
               >
                 →
@@ -320,7 +415,7 @@ export function Hero() {
               {/* Right Persona: Data Analyst */}
               <span
                 className={`whitespace-nowrap font-bold transition-all duration-300 ${
-                  interactionZone === "right"
+                  interactionZone === "right" || isDataAnalyst
                     ? "text-purple-400 scale-105 opacity-100 drop-shadow-[0_0_12px_rgba(138,43,226,0.7)]"
                     : "opacity-40 text-muted-foreground hover:opacity-60"
                 }`}
@@ -332,201 +427,71 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Main 2-Column Grid: Text & Persona Visual */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 flex-1 my-auto">
-          {/* Left Column: Text & Dynamic Persona Details */}
-          <div className="flex flex-col justify-center order-2 lg:order-1 lg:mt-0 xl:pl-12">
-            
-            {/* Persona Titles & Content */}
-            <div className="min-h-[240px] sm:min-h-[260px] md:min-h-[280px] flex items-start">
-              <AnimatePresence mode="wait">
-                {!isDataAnalyst ? (
-                  <motion.div
-                    key="aiEngineer"
-                    initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: prefersReducedMotion ? 0 : 20 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  >
-                    <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground/80 uppercase mb-2">
-                      Aspiring
-                    </p>
-                    <h1
-                      className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br ${PERSONAS.aiEngineer.accentGradient} leading-tight`}
-                    >
-                      {PERSONAS.aiEngineer.titleLine1}
-                      <br />
-                      {PERSONAS.aiEngineer.titleLine2}
-                    </h1>
-                    <p className="mt-6 text-lg sm:text-xl md:text-2xl text-cyan-500/90 dark:text-cyan-400/80 font-mono tracking-widest uppercase">
-                      {PERSONAS.aiEngineer.techStack}
-                    </p>
-                    <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
-                      {PERSONAS.aiEngineer.description}
-                    </p>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="dataAnalyst"
-                    initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: prefersReducedMotion ? 0 : -20 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  >
-                    <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-muted-foreground/80 uppercase mb-2">
-                      Aspiring
-                    </p>
-                    <h1
-                      className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-br ${PERSONAS.dataAnalyst.accentGradient} leading-tight`}
-                    >
-                      {PERSONAS.dataAnalyst.titleLine1}
-                      <br />
-                      {PERSONAS.dataAnalyst.titleLine2}
-                    </h1>
-                    <p className="mt-6 text-lg sm:text-xl md:text-2xl text-purple-600/90 dark:text-purple-400/80 font-mono tracking-widest uppercase">
-                      {PERSONAS.dataAnalyst.techStack}
-                    </p>
-                    <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
-                      {PERSONAS.dataAnalyst.description}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Action Row & Dynamic Resume CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-6 flex flex-wrap gap-4 items-center"
-            >
-              {/* Dynamic Synchronized Resume CTA Button */}
-              <AnimatePresence mode="wait">
-                {!isDataAnalyst ? (
-                  <motion.a
-                    key="ai-resume-btn"
-                    href={PERSONAS.aiEngineer.resumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
-                    className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-bold border transition-all duration-300 hover:scale-105 ${PERSONAS.aiEngineer.buttonClass}`}
-                  >
-                    <Download className="w-5 h-5" />
-                    <span>{PERSONAS.aiEngineer.resumeLabel}</span>
-                  </motion.a>
-                ) : (
-                  <motion.a
-                    key="da-resume-btn"
-                    href={PERSONAS.dataAnalyst.resumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
-                    className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-bold border transition-all duration-300 hover:scale-105 ${PERSONAS.dataAnalyst.buttonClass}`}
-                  >
-                    <Download className="w-5 h-5" />
-                    <span>{PERSONAS.dataAnalyst.resumeLabel}</span>
-                  </motion.a>
-                )}
-              </AnimatePresence>
-
-              <a
-                href="#projects"
-                className="px-6 py-3.5 rounded-xl font-bold bg-foreground text-background hover:scale-105 hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2"
-              >
-                <span>View Projects</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-
-              <div className="flex items-center gap-3 ml-1 sm:ml-3">
-                <a
-                  href="https://github.com/Shreyaas0710"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-cyan-500 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-300"
-                  aria-label="GitHub Profile"
+        {/* Main 2-Column Swapping Grid: Physical layout matches Left vs Right Persona Selection */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 flex-1 my-auto w-full">
+          {/* Left Column Container */}
+          <div className="order-2 lg:order-1 flex justify-center w-full min-h-[420px]">
+            <AnimatePresence mode="wait">
+              {!isDataAnalyst ? (
+                /* AI Engineer Active -> Text Content on LEFT */
+                <motion.div
+                  key="ai-text-left"
+                  initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="w-full xl:pl-6"
                 >
-                  <FaGithub className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border border-border glass-card flex items-center justify-center text-muted-foreground hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
-                  aria-label="LinkedIn Profile"
+                  {renderTextContent(PERSONAS.aiEngineer)}
+                </motion.div>
+              ) : (
+                /* Data Analyst Active -> Photo Visual on LEFT */
+                <motion.div
+                  key="da-image-left"
+                  initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="w-full flex justify-center items-end h-[50vh] sm:h-[55vh] lg:h-[70vh]"
                 >
-                  <FaLinkedin className="w-5 h-5" />
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Desktop & Mobile Interaction Guidance */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.7 }}
-              transition={{ delay: 1, duration: 1 }}
-              className="mt-8 flex items-center gap-3 text-xs md:text-sm text-muted-foreground font-mono tracking-widest uppercase"
-            >
-              <div className="h-px flex-1 bg-border" />
-              <span className="hidden sm:inline">Move left/right to switch persona</span>
-              <span className="sm:hidden flex items-center gap-1.5">
-                <Smartphone className="w-3.5 h-3.5 text-cyan-400" /> Swipe ← →
-              </span>
-              <div className="h-px flex-1 bg-border" />
-            </motion.div>
+                  {renderImageVisual(PERSONAS.dataAnalyst)}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Right Column: Dual Persona Visual Layer */}
-          <div className="relative flex justify-center items-end h-[50vh] sm:h-[55vh] lg:h-full order-1 lg:order-2">
-            <div className="relative w-full max-w-lg lg:max-w-xl h-full flex items-end">
-              {/* AI Engineer Image */}
-              <div
-                className="absolute inset-x-0 bottom-0 top-6 transition-all duration-500 ease-out flex justify-center"
-                style={{
-                  opacity: isDataAnalyst ? 0 : 1,
-                  transform: `scale(${isDataAnalyst ? 0.95 : 1})`,
-                  filter: isDataAnalyst ? "brightness(0.3) blur(4px)" : "brightness(1) blur(0px)",
-                }}
-              >
-                <img
-                  src={`${import.meta.env.BASE_URL}${PERSONAS.aiEngineer.image}`}
-                  alt={PERSONAS.aiEngineer.imageAlt}
-                  className="max-h-[65vh] lg:max-h-[80vh] w-auto object-contain object-bottom rounded-3xl drop-shadow-[0_0_20px_rgba(0,255,255,0.15)]"
-                />
-              </div>
-
-              {/* Data Analyst Image */}
-              <div
-                className="absolute inset-x-0 bottom-0 top-6 transition-all duration-500 ease-out flex justify-center"
-                style={{
-                  opacity: isDataAnalyst ? 1 : 0,
-                  transform: `scale(${isDataAnalyst ? 1 : 0.95})`,
-                  filter: isDataAnalyst ? "brightness(1) blur(0px)" : "brightness(0.3) blur(4px)",
-                }}
-              >
-                <img
-                  src={`${import.meta.env.BASE_URL}${PERSONAS.dataAnalyst.image}`}
-                  alt={PERSONAS.dataAnalyst.imageAlt}
-                  className="max-h-[65vh] lg:max-h-[80vh] w-auto object-contain object-bottom rounded-3xl drop-shadow-[0_0_20px_rgba(138,43,226,0.15)]"
-                />
-              </div>
-
-              {/* Base Radial Accent Glow */}
-              <div
-                className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-4/5 h-20 rounded-[100%] blur-3xl transition-all duration-500"
-                style={{
-                  background: currentPersona.imageGlow,
-                }}
-              />
-            </div>
+          {/* Right Column Container */}
+          <div className="order-1 lg:order-2 flex justify-center w-full min-h-[420px]">
+            <AnimatePresence mode="wait">
+              {!isDataAnalyst ? (
+                /* AI Engineer Active -> Photo Visual on RIGHT */
+                <motion.div
+                  key="ai-image-right"
+                  initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: prefersReducedMotion ? 0 : 30 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="w-full flex justify-center items-end h-[50vh] sm:h-[55vh] lg:h-[70vh]"
+                >
+                  {renderImageVisual(PERSONAS.aiEngineer)}
+                </motion.div>
+              ) : (
+                /* Data Analyst Active -> Text Content on RIGHT */
+                <motion.div
+                  key="da-text-right"
+                  initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: prefersReducedMotion ? 0 : 30 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="w-full xl:pr-6"
+                >
+                  {renderTextContent(PERSONAS.dataAnalyst)}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
+
       </div>
     </section>
   );
